@@ -27,6 +27,12 @@ public class FlyingHazard {
 			pointval = temp * 5;
 		}
 		
+		//CHANGE XCOOR. TEMPORARY VALUE
+		xcoor = 950;
+		//CHANGE YCOOR. TEMPORARY VALUE
+		temp = numgen.nextInt(4) + 1;
+		ycoor = (temp * 100) + (25 * temp);
+		
 		alive = true;
 		link = linkval;
 	}
