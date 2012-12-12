@@ -4,27 +4,46 @@ import java.awt.event.*;
 import javax.swing.*;
 
 
-public class PlayingtheGame 
+public class PlayingtheGame extends JFrame 
 	implements KeyListener, ActionListener {
-	private JButton begingame;
+		
+	JPanel graphicalgui; //totalwindow,
+	JButton begingamebtn;
 	
 	public static void main(String[] args){
-		PlayingtheGame frame = new PlayingtheGame();
-		frame.setSize(200, 200);
-		frame.initialpaint();
-		frame.setVisible(true);
+		
+		PlayingtheGame lewindow = new PlayingtheGame();
+		lewindow.setSize(1235, 760);
+		lewindow.initialpaint();
+		lewindow.setVisible(true);
 		
 	}
 	
 	//paints welcome screen
 	public void initialpaint(){
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		Container window = getContentPane();
-		window.setLayout(new FlowLayout());
+		Container totalwindow = getContentPane();
 		
-		begingame = new JButton("Play");
-		window.add(begingame);
+		totalwindow.setLayout(new FlowLayout());
 		
+		graphicalgui = new JPanel();
+		graphicalgui.setLayout(null);
+		graphicalgui.setLocation(10, 2);
+		graphicalgui.setPreferredSize(new Dimension(1223, 725));
+		graphicalgui.setBackground(Color.blue);
+		totalwindow.add(graphicalgui);
+		
+		begingamebtn = new JButton("Play");
+		begingamebtn.setLocation(575, 350);
+		begingamebtn.setSize(75, 30);
+		graphicalgui.add(begingamebtn);
+		
+	}
+	
+	public void prepaint(){
+		graphicalgui.removeAll();
+		graphicalgui.setBackground(Color.gray);
+		paint();
 	}
 	
 	//paints game screen
@@ -40,8 +59,10 @@ public class PlayingtheGame
 		}
 	}
 	
-	private void begingameActionPerformed(java.awt.event.ActionEvent evt) {
-			
+	public void actionPerformed(ActionEvent evt) {
+			if (evt.getSource() == begingamebtn){
+				prepaint();
+			}
 		}
 	
 	public void keyPressed(KeyEvent evt) {
@@ -73,12 +94,6 @@ public class PlayingtheGame
 	
 	//apparently required by KeyListener....
 	public void keyReleased(KeyEvent evt){
-		
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
