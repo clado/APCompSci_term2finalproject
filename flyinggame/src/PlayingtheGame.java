@@ -1,6 +1,9 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 
@@ -9,6 +12,7 @@ public class PlayingtheGame extends JFrame
 		
 	JPanel graphicalgui; //totalwindow,
 	JButton begingamebtn;
+	Image splashjpg;
 	
 	public static void main(String[] args){
 		
@@ -42,7 +46,12 @@ public class PlayingtheGame extends JFrame
 	
 	public void prepaint(){
 		graphicalgui.removeAll();
-		graphicalgui.setBackground(Color.gray);
+		try {
+			splashjpg = ImageIO.read(new File("splashscreen.jpg"));
+		} catch (IOException e) {
+			System.out.println("Splash page file not found");
+		}
+		graphicalgui.drawImage(splashjpg, 0, 0, null);
 		paint();
 	}
 	
