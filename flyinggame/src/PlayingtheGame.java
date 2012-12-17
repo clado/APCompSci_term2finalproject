@@ -1,21 +1,25 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.*;
+import javax.sound.sampled.DataLine.Info;
 import javax.swing.*;
+
+import org.pscode.xui.sound.bigclip.BigClip;
 
 
 public class PlayingtheGame extends JFrame 
 	implements KeyListener, ActionListener {
 		
-	JPanel graphicalgui; //totalwindow,
+	JPanel graphicalgui;
 	JButton begingamebtn;
 	Image splashjpg;
 	
 	public static void main(String[] args){
-		
+		//init sound for later
 		PlayingtheGame lewindow = new PlayingtheGame();
 		lewindow.setSize(1235, 760);
 		lewindow.initialpaint();
@@ -40,18 +44,44 @@ public class PlayingtheGame extends JFrame
 		begingamebtn = new JButton("Play");
 		begingamebtn.setLocation(575, 350);
 		begingamebtn.setSize(75, 30);
+		begingamebtn.addActionListener(this);
 		graphicalgui.add(begingamebtn);
+		
+
+
 		
 	}
 	
-	public void prepaint(){
+	public void prepaint() throws IOException{
 		graphicalgui.removeAll();
-		try {
-			splashjpg = ImageIO.read(new File("splashscreen.jpg"));
-		} catch (IOException e) {
-			System.out.println("Splash page file not found");
-		}
-		graphicalgui.drawImage(splashjpg, 0, 0, null);
+		graphicalgui.setBackground(Color.cyan);
+		//try {
+		//	splashjpg = ImageIO.read(new File("/Users/annelies/gitrepositories/APCompSci_Term2finalproject/flyinggame/splashscreen.jpg"));
+		//} catch (IOException e) {
+		//	System.out.println("Splash page file not found");
+		//}
+		
+		   try {
+		         File soundfile = new File("/Users/annelies/gitrepositories/APCompSci_Term2finalproject/flyinggame/gamebackgroundmusic.wav");
+		         AudioInputStream sound = AudioSystem.getAudioInputStream(soundfile);
+		         BigClip clip = new BigClip();
+		         //DataLine.Info info = new DataLine.Info(PlayingtheGame.class, sound.getFormat());
+		         //Clip clip = (Clip) AudioSystem.getLine(info);
+		         clip.open(sound);
+		         clip.loop(Clip.LOOP_CONTINUOUSLY);
+		      } catch (UnsupportedAudioFileException e) {
+		         e.printStackTrace();
+		      } catch (IOException e) {
+		         e.printStackTrace();
+		      } catch (LineUnavailableException e) {
+		         e.printStackTrace();
+		      }
+		
+		//play music
+
+
+
+		System.out.println("AUDIO SHOULDN'T BE OVER.");
 		paint();
 	}
 	
@@ -70,7 +100,11 @@ public class PlayingtheGame extends JFrame
 	
 	public void actionPerformed(ActionEvent evt) {
 			if (evt.getSource() == begingamebtn){
-				prepaint();
+					try {
+						prepaint();
+					} catch (IOException e) {
+						System.out.println("Bad things happened");
+					}
 			}
 		}
 	
