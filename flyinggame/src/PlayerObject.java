@@ -1,3 +1,6 @@
+import java.awt.*;
+import javax.swing.JPanel;
+
 
 public class PlayerObject {
 	private int xcoor, ycoor;
@@ -29,5 +32,12 @@ public class PlayerObject {
 	//moves the playable character rightwards
 	public void incRight(){
 		ycoor = ycoor + incHorz;
+	}
+	
+	//redraws the object
+	public void redrawObject(JPanel guiwindowerness){
+		Graphics paper = guiwindowerness.getGraphics();
+		paper.setColor(Color.black);
+		paper.fillRect(ycoor, xcoor, 20, 20);
 	}
 }

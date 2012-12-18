@@ -37,16 +37,12 @@ public class PlayingtheGame extends JFrame
 		
 		totalwindow.setLayout(new FlowLayout());
 		
-		//define pause window, for when it is needed
-		
 		graphicalgui = new JPanel();
 		graphicalgui.setLayout(null);
 		graphicalgui.setLocation(10, 2);
 		graphicalgui.setPreferredSize(new Dimension(1223, 725));
 		graphicalgui.setBackground(Color.blue);
 		totalwindow.add(graphicalgui);
-		
-		
 		
 		begingamebtn = new JButton("Play");
 		begingamebtn.setLocation(575, 350);
@@ -59,6 +55,8 @@ public class PlayingtheGame extends JFrame
 	public void prepaint() throws IOException{
 		graphicalgui.removeAll();
 		graphicalgui.setBackground(Color.cyan);
+		graphicalgui.requestFocus();
+		graphicalgui.addKeyListener(this);
 		
 		//try {
 		//	splashjpg = ImageIO.read(new File("/Users/annelies/gitrepositories/APCompSci_Term2finalproject/flyinggame/splashscreen.jpg"));
@@ -82,12 +80,13 @@ public class PlayingtheGame extends JFrame
 		} catch (LineUnavailableException e) {
 			e.printStackTrace();
 		}
-		
+
 
 		
 		//creates player object
 		PlayerOne = new PlayerObject();
 		gamePaused = false;
+		//PlayerOne.redrawObject(graphicalgui);
 		
 		paint();
 	}
@@ -124,28 +123,33 @@ public class PlayingtheGame extends JFrame
 			}
 		}
 	
+	//searches for arrowkeys to move player character
 	public void keyPressed(KeyEvent evt) {
 		
 		int key = evt.getKeyCode();
 		
 		if (key == KeyEvent.VK_LEFT) {
-			
-			paint();
+			PlayerOne.incLeft();
+			PlayerOne.redrawObject(graphicalgui);
+			System.out.println("l");
 		}
 		
 		if (key == KeyEvent.VK_RIGHT) {
-			
-			paint();
+			PlayerOne.incRight();
+			PlayerOne.redrawObject(graphicalgui);
+			System.out.println("r");
 		}
 		
 		if (key == KeyEvent.VK_DOWN) {
-			
-			paint();
+			PlayerOne.incDown();
+			PlayerOne.redrawObject(graphicalgui);
+			System.out.println("d");
 		}
 		
 		if (key == KeyEvent.VK_UP){
-			
-			paint();
+			PlayerOne.incUp();
+			PlayerOne.redrawObject(graphicalgui);
+			System.out.println("u");
 		}
 		
 		
