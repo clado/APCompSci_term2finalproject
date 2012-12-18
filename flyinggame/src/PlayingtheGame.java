@@ -17,9 +17,12 @@ public class PlayingtheGame extends JFrame
 	JPanel graphicalgui;
 	JButton begingamebtn;
 	Image splashjpg;
+	Boolean gamePaused;
+	
+	private PlayerObject PlayerOne;
 	
 	public static void main(String[] args){
-		//init sound for later
+		
 		PlayingtheGame lewindow = new PlayingtheGame();
 		lewindow.setSize(1235, 760);
 		lewindow.initialpaint();
@@ -34,6 +37,8 @@ public class PlayingtheGame extends JFrame
 		
 		totalwindow.setLayout(new FlowLayout());
 		
+		//define pause window, for when it is needed
+		
 		graphicalgui = new JPanel();
 		graphicalgui.setLayout(null);
 		graphicalgui.setLocation(10, 2);
@@ -41,47 +46,49 @@ public class PlayingtheGame extends JFrame
 		graphicalgui.setBackground(Color.blue);
 		totalwindow.add(graphicalgui);
 		
+		
+		
 		begingamebtn = new JButton("Play");
 		begingamebtn.setLocation(575, 350);
 		begingamebtn.setSize(75, 30);
 		begingamebtn.addActionListener(this);
 		graphicalgui.add(begingamebtn);
 		
-
-
-		
 	}
 	
 	public void prepaint() throws IOException{
 		graphicalgui.removeAll();
 		graphicalgui.setBackground(Color.cyan);
+		
 		//try {
 		//	splashjpg = ImageIO.read(new File("/Users/annelies/gitrepositories/APCompSci_Term2finalproject/flyinggame/splashscreen.jpg"));
 		//} catch (IOException e) {
 		//	System.out.println("Splash page file not found");
 		//}
 		
-		   try {
-		         File soundfile = new File("/Users/annelies/gitrepositories/APCompSci_Term2finalproject/flyinggame/gamebackgroundmusic.wav");
-		         AudioInputStream sound = AudioSystem.getAudioInputStream(soundfile);
-		         BigClip clip = new BigClip();
-		         //DataLine.Info info = new DataLine.Info(PlayingtheGame.class, sound.getFormat());
-		         //Clip clip = (Clip) AudioSystem.getLine(info);
-		         clip.open(sound);
-		         clip.loop(Clip.LOOP_CONTINUOUSLY);
-		      } catch (UnsupportedAudioFileException e) {
-		         e.printStackTrace();
-		      } catch (IOException e) {
-		         e.printStackTrace();
-		      } catch (LineUnavailableException e) {
-		         e.printStackTrace();
-		      }
-		
 		//play music
+		try {
+			File soundfile = new File("/Users/annelies/gitrepositories/APCompSci_Term2finalproject/flyinggame/gamebackgroundmusic.wav");
+			AudioInputStream sound = AudioSystem.getAudioInputStream(soundfile);
+			BigClip clip = new BigClip();
+			clip.open(sound);
+			//there is a bug in "LOOP_CONTINUOUSLY" and we cannot use it at the moment. :(
+			//looping itself may not even be operational
+			clip.loop(10);
+		} catch (UnsupportedAudioFileException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		}
+		
 
-
-
-		System.out.println("AUDIO SHOULDN'T BE OVER.");
+		
+		//creates player object
+		PlayerOne = new PlayerObject();
+		gamePaused = false;
+		
 		paint();
 	}
 	
@@ -94,7 +101,16 @@ public class PlayingtheGame extends JFrame
 	public void keyTyped(KeyEvent evt) {
 		char pauseevent= evt.getKeyChar();
 		if (pauseevent == 'p' || pauseevent == 'P') {
-			//stuff
+			if (gamePaused){
+				gamePaused = false;
+				//remove pausescreen
+				//restart game
+			}
+			else{
+				gamePaused = true;
+				//stop game
+				//show pausescreen
+			}
 		}
 	}
 	

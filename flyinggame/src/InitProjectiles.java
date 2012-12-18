@@ -1,12 +1,15 @@
 
 public class InitProjectiles implements Runnable {
 		Thread playing;
-		boolean gameover;
-		int speed;
+		private LinkedListHazards HazardObjects;
+		private boolean gameover;
+		private int speed;
+
 	
 	//constructs thread
 	public InitProjectiles(String name){
 		playing = new Thread(this, name);
+		HazardObjects = new LinkedListHazards();
 		gameover = false;
 		speed = 10000;
 	}
