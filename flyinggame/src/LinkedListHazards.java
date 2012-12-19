@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 
 public class LinkedListHazards {
 		
@@ -10,7 +12,12 @@ public class LinkedListHazards {
 	
 	//adds another Hazard
 	public void addtoStart(int difficulty){
-		head = new FlyingHazard(difficulty, head);
+		try {
+			head = new FlyingHazard(difficulty, head);
+		} catch (IOException e) {
+			System.out.println("Hazard img not found.");
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -25,6 +32,10 @@ public class LinkedListHazards {
 			position = position.getLink();
 		}
 		return count;
+	}
+	
+	public void incObjects(){
+		
 	}
 }
 

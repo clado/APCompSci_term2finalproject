@@ -1,4 +1,9 @@
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 public class FlyingHazard {
 	
@@ -6,6 +11,7 @@ public class FlyingHazard {
 	private boolean alive;
 	private int pointval, xcoor, ycoor;
 	private Random numgen = new Random();
+	public BufferedImage hazardpng;
 	
 	//creates the first Hazard
 	public FlyingHazard(){
@@ -14,10 +20,11 @@ public class FlyingHazard {
 		xcoor = 0;
 		ycoor = 0;
 		link = null;
+		hazardpng = null;
 	}
 	
 	//creates a new Hazard when there already are some
-	public FlyingHazard(int difficulty, FlyingHazard linkval){
+	public FlyingHazard(int difficulty, FlyingHazard linkval) throws IOException{
 		int temp = numgen.nextInt(3);
 		
 		//decides whether the object is dangerous
@@ -35,6 +42,9 @@ public class FlyingHazard {
 		
 		alive = true;
 		link = linkval;
+		temp = numgen.nextInt(1);
+		if (temp == 1) hazardpng = ImageIO.read(new File("/Users/annelies/gitrepositories/APCompSci_Term2finalproject/flyinggame/pickaxe.png"));
+		else hazardpng = ImageIO.read(new File("/Users/annelies/gitrepositories/APCompSci_Term2finalproject/flyinggame/saw.png"));
 	}
 	
 	//modify a Hazard's link.
@@ -62,6 +72,11 @@ public class FlyingHazard {
 	//return a Hazard's status
 	public boolean issalive(){
 		return alive;
+	}
+	
+	//
+	public void incHazard(){
+		xcoor = xcoor - 10;
 	}
 	
 }

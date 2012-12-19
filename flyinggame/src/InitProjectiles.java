@@ -17,10 +17,14 @@ public class InitProjectiles implements Runnable {
 	//use this to run the thread
 	public void run(){
 		System.out.println("Projectiles have started");
+		int count = 0;
 		try {
 			do {
+				count ++;
 				Thread.sleep(speed);
-				
+				HazardObjects.incObjects();
+				System.out.println("Objects incremented");
+				if (count == 200) gameover = true;
 			} while(! gameover);
 			
 		}
