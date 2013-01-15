@@ -1,4 +1,4 @@
-import java.awt.*;
+ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
 import java.io.*;
@@ -25,7 +25,7 @@ public class PlayingtheGame extends JFrame
 	BufferedImage splashjpg;
 	Boolean gamePaused, gamebegun, gameend;
 	Container totalwindow;
-	//BufferedImage playerpng;
+	JLabel scorelabel;
 	
 	//private InitProjectiles ObjectsInMotionTryingToKillYou;
 	private PlayerObject PlayerOne;
@@ -55,7 +55,12 @@ public class PlayingtheGame extends JFrame
 		begingamebtn.setSize(75, 30);
 		begingamebtn.addActionListener(this);
 		
+		//scorelabel.alskdfjwoiefj;vzlxcjvowarg;
+		
 		PlayerOne = new PlayerObject();
+		//PlayerOne.moveObject(graphicalgui.getGraphics());
+		
+		splashjpg = ImageIO.read(new File("/Users/annelies/gitrepositories/APCompSci_Term2finalproject/flyinggame/splashscreen.jpg"));
 				
 		gamePaused = false;
 		gamebegun = false;
@@ -70,7 +75,6 @@ public class PlayingtheGame extends JFrame
 			graphicalgui.add(begingamebtn);
 		}
 		else if(gamebegun && !gameend){
-			//PlayerOne.moveObject(graphicalgui.getGraphics());
 		}
 		else{
 			
@@ -81,8 +85,7 @@ public class PlayingtheGame extends JFrame
 		graphicalgui.addKeyListener(this);
 	}			
 
-		//BufferedImage playerpng = ImageIO.read(new File("/Users/annelies/gitrepositories/APCompSci_Term2finalproject/flyinggame/Green.png"));
-		//JLabel playerpic = new JLabel(new ImageIcon(playerpng));
+		
 	
 	public void actionPerformed(ActionEvent evt) {
 		if (evt.getSource() == begingamebtn){
@@ -97,7 +100,6 @@ public class PlayingtheGame extends JFrame
 		}
 	}
 	
-	//IMPLEMENT FOR PAUSE FUNCTION! :D
 	public void keyTyped(KeyEvent evt) {
 		char pauseevent = evt.getKeyChar();
 		if (pauseevent == 'p' || pauseevent == 'P') {
@@ -129,32 +131,32 @@ public class PlayingtheGame extends JFrame
 		if (key == KeyEvent.VK_LEFT) {
 			if (!gamePaused){
 				PlayerOne.incLeft();
+				graphicalgui.getGraphics().drawImage(splashjpg, 0, 0, null);
 				PlayerOne.moveObject(graphicalgui.getGraphics());
-				//paint();
 			}
 		}
 		
 		if (key == KeyEvent.VK_RIGHT) {
 			if (!gamePaused){
 				PlayerOne.incRight();
+				graphicalgui.getGraphics().drawImage(splashjpg, 0, 0, null);
 				PlayerOne.moveObject(graphicalgui.getGraphics());
-				//paint();
 			}
 		}
 		
 		if (key == KeyEvent.VK_DOWN) {
 			if (!gamePaused){
 				PlayerOne.incDown();
+				graphicalgui.getGraphics().drawImage(splashjpg, 0, 0, null);
 				PlayerOne.moveObject(graphicalgui.getGraphics());
-				//paint();
 			}
 		}
 		
 		if (key == KeyEvent.VK_UP){
 			if (!gamePaused){
 				PlayerOne.incUp();
+				graphicalgui.getGraphics().drawImage(splashjpg, 0, 0, null);
 				PlayerOne.moveObject(graphicalgui.getGraphics());
-				//paint();
 			}
 		}
 		

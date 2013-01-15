@@ -1,9 +1,12 @@
+import java.util.Random;
 
 public class InitProjectiles implements Runnable {
 		Thread playing;
 		private LinkedListHazards HazardObjects;
-		private boolean gameover;
+		public boolean gameover;
 		private int speed;
+		public int timesrun;
+		private int difficulty;
 
 	
 	//constructs thread
@@ -12,19 +15,20 @@ public class InitProjectiles implements Runnable {
 		HazardObjects = new LinkedListHazards();
 		gameover = false;
 		speed = 10000;
+		timesrun = 0;
+		difficulty = 0;
 	}
 	
 	//use this to run the thread
 	public void run(){
 		System.out.println("Projectiles have started");
-		int count = 0;
 		try {
 			do {
-				count ++;
+				timesrun ++;
 				Thread.sleep(speed);
 				HazardObjects.incObjects();
 				System.out.println("Objects incremented");
-				if (count == 200) gameover = true;
+				if (timesrun == 1000) gameover = true;
 			} while(! gameover);
 			
 		}

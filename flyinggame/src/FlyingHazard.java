@@ -9,22 +9,24 @@ public class FlyingHazard {
 	
 	private FlyingHazard link;
 	private boolean alive;
-	private int pointval, xcoor, ycoor;
+	private int xcoor, ycoor;
 	private Random numgen = new Random();
 	public BufferedImage hazardpng;
+	private final int incamount = 15;
 	
-	//creates the first Hazard
-	public FlyingHazard(){
-		alive = true;
-		pointval = 0;
-		xcoor = 0;
-		ycoor = 0;
-		link = null;
-		hazardpng = null;
-	}
+	int pointval;
+	
+	//pretty sure I don't need this
+	//public FlyingHazard(){
+	//	alive = true;
+	//	xcoor = 0;
+	//	ycoor = 0;
+	//	link = null;
+	//	hazardpng = null;
+	//}
 	
 	//creates a new Hazard when there already are some
-	public FlyingHazard(int difficulty, FlyingHazard linkval) throws IOException{
+	public FlyingHazard(int difficulty, FlyingHazard linkval, int y, int x) throws IOException{
 		int temp = numgen.nextInt(3);
 		
 		//decides whether the object is dangerous
@@ -34,14 +36,13 @@ public class FlyingHazard {
 			pointval = temp * 5;
 		}
 		
-		//CHANGE XCOOR. TEMPORARY VALUE
-		xcoor = 950;
-		//CHANGE YCOOR. TEMPORARY VALUE
-		temp = numgen.nextInt(4) + 1;
-		ycoor = (temp * 100) + (25 * temp);
+		xcoor = x;
+		ycoor = y;
 		
 		alive = true;
 		link = linkval;
+		//sets the hazard image to a random image
+		//CHANGE FOR POWERUPS
 		temp = numgen.nextInt(1);
 		if (temp == 1) hazardpng = ImageIO.read(new File("/Users/annelies/gitrepositories/APCompSci_Term2finalproject/flyinggame/pickaxe.png"));
 		else hazardpng = ImageIO.read(new File("/Users/annelies/gitrepositories/APCompSci_Term2finalproject/flyinggame/saw.png"));
@@ -64,19 +65,15 @@ public class FlyingHazard {
 		return link;
 	}
 	
-	//returns a Hazard's pointvalue
-	public int getPoints(){
-		return pointval;
-	}
 	
 	//return a Hazard's status
 	public boolean issalive(){
 		return alive;
 	}
 	
-	//
+	//moves a Hazard forward on the grid
 	public void incHazard(){
-		xcoor = xcoor - 10;
+		xcoor = xcoor - incamount;
 	}
 	
 }
