@@ -1,10 +1,11 @@
+import java.awt.Graphics;
 import java.io.IOException;
 import java.util.Random;
 
 
 public class LinkedListHazards {
 		
-	private FlyingHazard head;
+	public FlyingHazard head;
 	private final int xcoordinate;
 	private boolean[] isHazard;
 	private Random rand;
@@ -15,10 +16,10 @@ public class LinkedListHazards {
 	public LinkedListHazards(){
 		head = null;
 		rand = new Random();
-		collectedpoints = 0;
 		xcoordinate = 1125;
 		isHazard = new boolean[7];
 		resetSafety();
+		collectedpoints = 0;
 	}
 	
 	//adds another Hazard
@@ -74,9 +75,35 @@ public class LinkedListHazards {
 	
 	//checks to see if the plane has collided with any of the hazards, adding points when necessary
 	//returns whether the game is over due to collision
-	public boolean checkCollisions(){
-		
+	public boolean checkCollisions(int x, int y){
+		FlyingHazard position = head;
+		FlyingHazard prevpos = null;
+		while (position != null){
+			if (position.isalive()){
+				if (((x + 150) > position.getx() && x < (position.getx() + position.getw())) || ((y + 66) > position.gety() && y < (position.gety() + position.geth()))){
+					collectedpoints = collectedpoints + position.getpointval();
+					if (position.getpointval() == 0) return true;
+					position.kill();
+					if (prevpos != null){
+						prevpos.setLink(position.getLink());
+					}
+					else {
+						head = position.getLink();
+					}
+				}
+			}
+			prevpos = position;
+			position = position.getLink();
+		}
 		return false;
+	}	
+	
+	public void paintObjects(Graphics gui){
+		FlyingHazard position = head;
+		while (position != null){
+			gui.drawImage(position.hazardpng, position.getx(), position.gety(), null);
+			position = position.getLink();
+		}	
 	}
 	
 

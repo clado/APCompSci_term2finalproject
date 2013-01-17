@@ -12,18 +12,12 @@ public class FlyingHazard {
 	private int xcoor, ycoor;
 	private Random numgen = new Random();
 	public BufferedImage hazardpng;
-	private final int incamount = 15;
+	private BufferedImage pick = ImageIO.read(new File("/Users/annelies/gitrepositories/APCompSci_Term2finalproject/flyinggame/pickaxe.png"));
+	private BufferedImage saw = ImageIO.read(new File("/Users/annelies/gitrepositories/APCompSci_Term2finalproject/flyinggame/saw.png"));
+	private BufferedImage candy = ImageIO.read(new File("/Users/annelies/gitrepositories/APCompSci_Term2finalproject/flyinggame/candy.png"));
+	private final int incamount = 75, width, height;
 	
 	int pointval;
-	
-	//pretty sure I don't need this
-	//public FlyingHazard(){
-	//	alive = true;
-	//	xcoor = 0;
-	//	ycoor = 0;
-	//	link = null;
-	//	hazardpng = null;
-	//}
 	
 	//creates a new Hazard when there already are some
 	public FlyingHazard(int difficulty, FlyingHazard linkval, int y, int x) throws IOException{
@@ -36,6 +30,11 @@ public class FlyingHazard {
 			pointval = temp * 5;
 		}
 		
+		//modify to make stuff different sizes
+		width = 105;
+		height = 100;
+		
+		//calculated in LinkeList;
 		xcoor = x;
 		ycoor = y;
 		
@@ -44,8 +43,13 @@ public class FlyingHazard {
 		//sets the hazard image to a random image
 		//CHANGE FOR POWERUPS
 		temp = numgen.nextInt(1);
-		if (temp == 1) hazardpng = ImageIO.read(new File("/Users/annelies/gitrepositories/APCompSci_Term2finalproject/flyinggame/pickaxe.png"));
-		else hazardpng = ImageIO.read(new File("/Users/annelies/gitrepositories/APCompSci_Term2finalproject/flyinggame/saw.png"));
+		if (pointval == 0){
+			if (temp == 1) hazardpng = pick;
+			else hazardpng = saw;
+		}
+		else {
+			hazardpng = candy;
+		}
 	}
 	
 	//modify a Hazard's link.
@@ -65,9 +69,8 @@ public class FlyingHazard {
 		return link;
 	}
 	
-	
 	//return a Hazard's status
-	public boolean issalive(){
+	public boolean isalive(){
 		return alive;
 	}
 	
@@ -75,5 +78,26 @@ public class FlyingHazard {
 	public void incHazard(){
 		xcoor = xcoor - incamount;
 	}
+	
+	public int getx(){
+		return xcoor;
+	}
+	
+	public int gety(){
+		return ycoor;
+	}
+	
+	public int getw(){
+		return width;
+	}
+	
+	public int geth(){
+		return height;
+	}
+	
+	public int getpointval(){
+		return pointval;
+	}
+
 	
 }

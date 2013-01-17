@@ -49,4 +49,13 @@ public class PlayerObject {
 	public void moveObject(Graphics guigraphics){
 		guigraphics.drawImage(playergif, xcoor, ycoor, null);
 	}
+	
+	public int getx(){
+		return xcoor;
+	}
+	
+	public int gety(){
+		return ycoor;
+	}
+
 }
